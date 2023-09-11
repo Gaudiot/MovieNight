@@ -1,3 +1,2 @@
-# movie_night
-
-A new Flutter project.
+# MovieNight
+A Mobile App to ease the choosgin of the movie
