@@ -20,11 +20,16 @@ class BottomBar extends StatelessWidget{
           icon: Icon(Icons.remove_red_eye),
           label: "Watched"
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle_outlined),
+          label: "Profile"
+        )
       ];
   
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: AppColors.black,
       items: tabItems,
       currentIndex: selectedPage,
