@@ -34,9 +34,9 @@ class _CatalogState extends State<Catalog> {
   }
 
   Future<void> cleanCache() async{
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await _prefs.setStringList("@MovieNight/movies", []);
+    await prefs.setStringList("@MovieNight/movies", []);
     
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("Clear Cache"),

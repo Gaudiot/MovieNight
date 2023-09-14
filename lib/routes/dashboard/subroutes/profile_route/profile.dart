@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
+import 'package:movie_night/routes/dashboard/subroutes/profile_route/components/time_info.dart';
 import 'package:movie_night/shared/app_colors.dart';
 
 class Profile extends StatelessWidget {
@@ -7,23 +8,22 @@ class Profile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _ErasaDataButton()
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const TimeInfo(),
+        _ErasaDataButton()
+      ],
     );
   }
 }
 
-Future<void> _eraseMovieData() async{
-  await MoviesRepository.dropMovies();
-}
 
 class _ErasaDataButton extends StatelessWidget{
+  Future<void> _eraseMovieData() async{
+      await MoviesRepository.dropMovies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
