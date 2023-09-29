@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_night/routes/movie_detail/movie_detail.dart';
 import 'package:movie_night/shared/app_colors.dart';
@@ -24,9 +25,11 @@ class MovieCard extends StatelessWidget{
         margin: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
-            Image.network(
-              movie.posterPath,
-              height: 130
+            CachedNetworkImage(
+              imageUrl: movie.posterPath,
+              height: 130,
+              placeholder: (context, url) => const SizedBox(width: 87, height: 130, child: Placeholder()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             Expanded(
               child: Column(

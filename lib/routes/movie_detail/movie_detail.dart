@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_night/entities/movie.dart';
 import 'package:movie_night/routes/movie_detail/components/genre_item.dart';
@@ -61,16 +62,46 @@ class MovieDetail extends StatelessWidget{
               ),
               Row(
                 children: [
-                  Image.network(movie.posterPath, height: 250),
+                  CachedNetworkImage(
+                    imageUrl: movie.posterPath,
+                    height: 250,
+                    placeholder: (context, url) => const SizedBox(width: 167, height: 250, child: Placeholder()),
+                    errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
+                  ),
                   const SizedBox(width: 20),
                   Expanded(
                     child: Container(
-                      color: AppColors.gray,
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: AppColors.black,
+                      ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(movie.title),
-                          Text(timeFormatter(movie.runtime))
+                          Text(movie.title, style: const TextStyle(
+                            fontSize: 30,
+                            color: AppColors.yellow
+                            ),
+                            overflow: TextOverflow.visible,
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              const Icon(Icons.schedule, color: AppColors.white),
+                              Text(timeFormatter(movie.runtime), style: const TextStyle(
+                                color: AppColors.white
+                              )),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              const Icon(Icons.star,  color: AppColors.white,),
+                              Text(movie.rating.toStringAsFixed(2), style: const TextStyle(
+                                color: AppColors.white
+                              )),
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -91,16 +122,19 @@ class MovieDetail extends StatelessWidget{
                 "Synopsis",
                 style: TextStyle(
                   fontSize: 30,
-                  fontWeight: FontWeight.w600
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.yellow
                 ),
               ),
               Container(
                 decoration: const BoxDecoration(
-                  color: AppColors.gray,
+                  color: AppColors.black,
                   borderRadius: BorderRadius.all(Radius.circular(5))
                 ),
                 padding: const EdgeInsets.all(10),
-                child: Text(movie.synopsis)
+                child: Text(movie.synopsis, style: const TextStyle(
+                  color: AppColors.white
+                ))
               )
             ],
           ),

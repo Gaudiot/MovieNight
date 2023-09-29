@@ -10,12 +10,15 @@ class GenreItem extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(1000)),
-        color: AppColors.yellow
+        color: AppColors.gray
       ),
       padding: const EdgeInsets.all(10),
       child: Text(
         genre,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.black
+          ),
       ),
     );
   }
