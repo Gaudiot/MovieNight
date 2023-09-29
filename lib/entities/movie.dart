@@ -22,8 +22,8 @@ class Movie implements Comparable<Movie>{
     this.synopsis = "No available synopsis for this movie.",
     this.watched = false,
     this.favorite = false,
-    // this.posterPath = "https://www.altavod.com/assets/images/poster-placeholder.png"
-    this.posterPath = "https://d994l96tlvogv.cloudfront.net/uploads/film/poster/poster-image-coming-soon-placeholder-no-logo-500-x-740_29376.png"
+    this.posterPath = "https://www.altavod.com/assets/images/poster-placeholder.png"
+    // this.posterPath = "https://d994l96tlvogv.cloudfront.net/uploads/film/poster/poster-image-coming-soon-placeholder-no-logo-500-x-740_29376.png"
   }){
     id = uuid.v4();
   }

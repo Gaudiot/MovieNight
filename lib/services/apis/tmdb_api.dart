@@ -39,6 +39,7 @@ class TmdbApi{
       runtime: movieInfo["runtime"],
       genres: movieGenres.map<String>((genre) => genre["name"]).toList(),
       rating: movieInfo["vote_average"],
+      synopsis: movieInfo["overview"],
       posterPath: posterPath
     );
 

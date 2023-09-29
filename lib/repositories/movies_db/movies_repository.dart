@@ -55,4 +55,8 @@ class MoviesRepository {
     List<String> newEncodedMovies = movies.map<String>((movie) => jsonEncode(movie.toMap())).toList();
     await LocalStorage.setStringList("movies", newEncodedMovies);
   }
+
+  static Future<void> dropMovies() async{
+    await LocalStorage.setStringList("movies", []);
+  }
 }

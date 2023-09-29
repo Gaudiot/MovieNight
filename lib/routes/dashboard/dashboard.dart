@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/routes/dashboard/components/bottom_bar.dart';
 import 'package:movie_night/routes/dashboard/subroutes/catalog_route/catalog.dart';
 import 'package:movie_night/routes/dashboard/subroutes/planning_route/planning.dart';
+import 'package:movie_night/routes/dashboard/subroutes/profile_route/profile.dart';
 import 'package:movie_night/routes/dashboard/subroutes/watched_route/watched.dart';
 import 'package:movie_night/shared/app_colors.dart';
 
@@ -15,7 +16,7 @@ class Dashboard extends StatefulWidget{
 class _DashboardState extends State<Dashboard> {
   int selectedPage = 0;
 
-  List<Widget> pages = <Widget>[const Catalog(), const Planning(), const Watched()];
+  List<Widget> pages = <Widget>[const Catalog(), const Planning(), const Watched(), const Profile()];
 
   void selectPage(int page){
     setState(() {
