@@ -1,7 +1,7 @@
 name: movie_night
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.0.0
+version: 1.1.0
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -13,13 +13,14 @@ dependencies:
   uuid: ^3.0.6
   provider: ^6.0.5
   dio: ^5.3.2
-  flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.2.0
   cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
 
 flutter:
