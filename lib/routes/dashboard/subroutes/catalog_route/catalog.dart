@@ -82,7 +82,12 @@ class _CatalogState extends State<Catalog> {
                 return const Center(child: CircularProgressIndicator());
               }
               if(snapshot.hasError){
-                return const NoWifiConnexion();
+                return Column(
+                  children: [
+                    Text('${snapshot.error}'),
+                    const NoWifiConnexion(),
+                  ],
+                );
               }
               
               List<Movie> movies = snapshot.requireData;
@@ -90,6 +95,7 @@ class _CatalogState extends State<Catalog> {
               if(movies.isEmpty){
                 return const NoMovies();
               }
+              
               return Container(
                 decoration: const BoxDecoration(color: AppColors.blue),
                 child: ListView.builder(

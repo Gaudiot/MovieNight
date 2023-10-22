@@ -35,7 +35,7 @@ class MovieCard extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(movie.title),
+                  Text('${movie.title} (${movie.year})'),
                   Row(
                     children: [
                       const Icon(Icons.star),
@@ -47,38 +47,10 @@ class MovieCard extends StatelessWidget{
                 ],
               ),
             ),
-            // Column(
-            //   children: [
-            //     for(String genre in movie.genres)
-            //       _Genre(genre: genre)
-            //   ],
-            // ),
             ...buttons
           ],
         ),
       ),
     );
   }
-}
-
-class _Genre extends StatelessWidget{
-  final String genre;
-
-  const _Genre({required this.genre});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(100)),
-        border: Border.all(color: AppColors.black)
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(genre),
-      )
-    );
-  }
-  
 }

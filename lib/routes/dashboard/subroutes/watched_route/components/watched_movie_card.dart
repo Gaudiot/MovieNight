@@ -12,14 +12,14 @@ class WatchedMovieCard extends StatelessWidget{
   WatchedMovieCard({super.key, required this.movie, required this.onAction});
 
   Future<void> toggleFavorite() async{
-    final String movieId = movie.id;
+    final String movieId = movie.getImdbId();
     await MoviesRepository.toggleFavoriteMovie(movieId);
 
     onAction();
   }
 
   Future<void> markAsUnwatched() async{
-    final String movieId = movie.id;
+    final String movieId = movie.getImdbId();
     await MoviesRepository.toggleWatchMovie(movieId);
     if(movie.favorite) await MoviesRepository.toggleFavoriteMovie(movieId);
 

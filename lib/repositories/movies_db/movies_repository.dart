@@ -21,9 +21,18 @@ class MoviesRepository {
     return movies;
   }
 
+  static Future<Movie?> findMovieById(String id) async{
+    List<Movie> movies = await getMovies();
+    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == id);
+
+    if(movieIndex == -1) return null;
+
+    return movies[movieIndex];
+  }
+
   static Future<void> toggleWatchMovie(String movieId) async{
     List<Movie> movies = await getMovies();
-    int movieIndex = movies.indexWhere((movie) => movie.id == movieId);
+    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == movieId);
     movies[movieIndex].watched = !movies[movieIndex].watched;
 
     await saveMovies(movies);
@@ -31,20 +40,21 @@ class MoviesRepository {
 
   static Future<void> deleteById(String movieId) async{
     List<Movie> movies = await getMovies();
-    movies.removeWhere((movie) => movie.id == movieId);
+    movies.removeWhere((movie) => movie.getImdbId()== movieId);
 
     await saveMovies(movies);
   }
 
   static Future<void> toggleFavoriteMovie(String movieId) async{
     List<Movie> movies = await getMovies();
-    int movieIndex = movies.indexWhere((movie) => movie.id == movieId);
+    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == movieId);
     movies[movieIndex].favorite = !movies[movieIndex].favorite;
 
     await saveMovies(movies);
   }
 
   static Future<void> addMovieToPlanning(Movie movie) async{
+    if((await findMovieById(movie.getImdbId())) != null) return;
     List<Movie> movies = await getMovies();
     movies.add(movie);
 
