@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:movie_night/components/movie_card.dart';
 import 'package:movie_night/entities/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CatalogMovieCard extends StatefulWidget {
   final Movie movie;
@@ -16,17 +13,8 @@ class CatalogMovieCard extends StatefulWidget {
 }
 
 class _CatalogMovieCardState extends State<CatalogMovieCard> {
-  MoviesRepository moviesRepository = MoviesRepository();
-
-  Future<void> addMovieToPlanning() async{
-    // moviesRepository.addMovieToPlanning(widget.movie);
-
-
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-
-    List<String> encodedMovies = _prefs.getStringList("@MovieNight/movies") ?? [];
-    encodedMovies.add(jsonEncode(widget.movie.toMap()));
-    await _prefs.setStringList("@MovieNight/movies", encodedMovies);
+  Future<void> addMovieToPlanning(Movie movie) async{
+    MoviesRepository.addMovieToPlanning(movie);
     
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("Movie added to list"),
@@ -34,16 +22,33 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     ));
   }
 
+  Future<bool> checkMovieOnList(String movieId) async{
+    Movie? movie = await MoviesRepository.findMovieById(movieId);
+
+    return (movie != null);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MovieCard(
-      movie: widget.movie,
-      buttons: [
-        IconButton(
-          onPressed: addMovieToPlanning,
-          icon: const Icon(Icons.add_circle_outline)
-        )
-      ],
+    Movie movie = widget.movie;
+
+    return FutureBuilder(
+      future: checkMovieOnList(movie.getImdbId()),
+      builder: (context, snapshot) {
+        if(!snapshot.hasData || snapshot.hasError) return Placeholder();
+
+        final bool isMovieOnList = snapshot.requireData;
+
+        return MovieCard(
+          movie: movie,
+          buttons: [
+            IconButton(
+              onPressed: (isMovieOnList) ? null : () => {addMovieToPlanning(movie)},
+              icon: const Icon(Icons.add_circle_outline)
+            )
+          ],
+        );
+      },
     );
   }
 }

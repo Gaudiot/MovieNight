@@ -11,14 +11,14 @@ class PlanningMovieCard extends StatelessWidget{
   PlanningMovieCard({super.key, required this.movie, required this.onAction});
 
   Future<void> removeMovie() async{
-    final String movieId = movie.id;
+    final String movieId = movie.getImdbId();
     await MoviesRepository.deleteById(movieId);
 
     onAction();
   }
 
   Future<void> markAsWatched() async{
-    final String movieId = movie.id;
+    final String movieId = movie.getImdbId();
     await MoviesRepository.toggleWatchMovie(movieId);
 
     onAction();

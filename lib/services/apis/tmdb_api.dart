@@ -25,17 +25,21 @@ class TmdbApi{
         }
       )
     );
-    
-    var movieInfo = result.data;
+    var movieInfo = result.data;    
 
     String posterPath = movieInfo['poster_path'] != null ? 
       "https://image.tmdb.org/t/p/original${movieInfo['poster_path']}" 
       : "https://d994l96tlvogv.cloudfront.net/uploads/film/poster/poster-image-coming-soon-placeholder-no-logo-500-x-740_29376.png";
 
     List movieGenres = movieInfo["genres"];
+    
+    final int movieYear = (movieInfo["release_date"] as String).isNotEmpty ? DateTime.parse(movieInfo["release_date"]).year : 9999;
+    final String imdbId = (movieInfo["imdb_id"] != null) ? movieInfo["imdb_id"] : "null";
 
     Movie movie = Movie(
+      imdbId: imdbId,
       title: movieInfo["title"],
+      year: movieYear,
       runtime: movieInfo["runtime"],
       genres: movieGenres.map<String>((genre) => genre["name"]).toList(),
       rating: movieInfo["vote_average"],
@@ -76,6 +80,8 @@ class TmdbApi{
 
       return completeMovie;
     }));
+
+    simplifiedMovieList = simplifiedMovieList.where((movie) => movie.getImdbId() != "null").toList();
 
     return simplifiedMovieList;
   }

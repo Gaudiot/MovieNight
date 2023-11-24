@@ -101,6 +101,15 @@ class MovieDetail extends StatelessWidget{
                                 color: AppColors.white
                               )),
                             ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              const Icon(Icons.calendar_month,  color: AppColors.white,),
+                              Text("${movie.year}", style: const TextStyle(
+                                color: AppColors.white
+                              )),
+                            ],
                           )
                         ],
                       ),

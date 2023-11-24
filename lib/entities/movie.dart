@@ -1,10 +1,7 @@
-import 'package:uuid/uuid.dart';
-
-const Uuid uuid = Uuid();
-
 class Movie implements Comparable<Movie>{
-  late String id;
+  late String _imdbId;
   final String title;
+  final int year;
   final String synopsis;
   final int runtime;
   final List<String> genres;
@@ -15,7 +12,9 @@ class Movie implements Comparable<Movie>{
   bool favorite = false;
 
   Movie({
+    required imdbId,
     required this.title,
+    required this.year,
     required this.runtime,
     required this.genres,
     required this.rating,
@@ -25,7 +24,15 @@ class Movie implements Comparable<Movie>{
     this.posterPath = "https://www.altavod.com/assets/images/poster-placeholder.png"
     // this.posterPath = "https://d994l96tlvogv.cloudfront.net/uploads/film/poster/poster-image-coming-soon-placeholder-no-logo-500-x-740_29376.png"
   }){
-    id = uuid.v4();
+    setImdbId(imdbId);
+  }
+
+  void setImdbId(String newImdbId){
+    _imdbId = newImdbId;
+  }
+
+  String getImdbId(){
+    return _imdbId;
   }
 
   @override
@@ -35,13 +42,11 @@ class Movie implements Comparable<Movie>{
     return -1;
   }
 
-  void _setMovieId(String newId){
-    id = newId;
-  }
-
   factory Movie.fromMap(Map map){
     Movie movie = Movie(
-      title: map['title'], 
+      imdbId: map['imdbId'],
+      title: map['title'],
+      year: map['year'],
       runtime: map['runtime'], 
       genres: List<String>.from(map['genres']), 
       rating: map['rating'],
@@ -50,15 +55,15 @@ class Movie implements Comparable<Movie>{
       favorite: map['favorite'],
       posterPath: map['posterPath']
     );
-    movie._setMovieId(map['id']);
 
     return movie;
   }
 
   Map toMap(){
     return {
-      'id': id,
+      'imdbId': _imdbId,
       'title': title,
+      'year': year,
       'runtime': runtime,
       'genres': genres,
       'rating': rating,
