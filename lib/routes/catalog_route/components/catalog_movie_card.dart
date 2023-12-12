@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/components/movie_card.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/shared/components/movie_card.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 
 class CatalogMovieCard extends StatefulWidget {
@@ -13,8 +13,18 @@ class CatalogMovieCard extends StatefulWidget {
 }
 
 class _CatalogMovieCardState extends State<CatalogMovieCard> {
+  final moviesRepository = MoviesRepository();
+
+  Future<bool>? _isMovieInList;
+
+  @override
+  void initState(){
+    super.initState();
+    _isMovieInList = checkMovieInList(widget.movie.imdbId);
+  }
+
   Future<void> addMovieToPlanning(Movie movie) async{
-    MoviesRepository.addMovieToPlanning(movie);
+    moviesRepository.addMovieToPlanning(movie);
     
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("Movie added to list"),
@@ -22,8 +32,8 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     ));
   }
 
-  Future<bool> checkMovieOnList(String movieId) async{
-    Movie? movie = await MoviesRepository.findMovieById(movieId);
+  Future<bool> checkMovieInList(String movieId) async{
+    Movie? movie = await moviesRepository.getMovieById(movieId);
 
     return (movie != null);
   }
@@ -33,17 +43,17 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     Movie movie = widget.movie;
 
     return FutureBuilder(
-      future: checkMovieOnList(movie.getImdbId()),
+      future: _isMovieInList,
       builder: (context, snapshot) {
-        if(!snapshot.hasData || snapshot.hasError) return Placeholder();
+        if(!snapshot.hasData || snapshot.hasError) return const Placeholder();
 
-        final bool isMovieOnList = snapshot.requireData;
+        final bool isMovieInList = snapshot.requireData;
 
         return MovieCard(
           movie: movie,
           buttons: [
             IconButton(
-              onPressed: (isMovieOnList) ? null : () => {addMovieToPlanning(movie)},
+              onPressed: (isMovieInList) ? null : () => {addMovieToPlanning(movie)},
               icon: const Icon(Icons.add_circle_outline)
             )
           ],

@@ -1,4 +1,4 @@
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 
 List<Movie> allMovies = [
   // Movie to Watch

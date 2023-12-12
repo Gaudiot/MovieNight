@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/routes/planning_route/components/planning_movies_list.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:movie_night/routes/dashboard/subroutes/planning_route/components/genre_filter.dart';
-import 'package:movie_night/routes/dashboard/subroutes/planning_route/components/planning_movie_card.dart';
+import 'package:movie_night/routes/planning_route/components/genre_filter.dart';
+import 'package:movie_night/routes/planning_route/components/planning_movie_card.dart';
 
 class Planning extends StatefulWidget{
 
@@ -14,6 +15,7 @@ class Planning extends StatefulWidget{
 }
 
 class _PlanningState extends State<Planning> {
+  final MoviesRepository moviesRepository = MoviesRepository();
   String titleToQuery = "";
   String? genreToQuery = "All";
 
@@ -76,34 +78,7 @@ class _PlanningState extends State<Planning> {
           ),
         ),
         Expanded(
-          child: FutureBuilder(
-            future: MoviesRepository.findMoviesWhere(title: titleToQuery, genrer: genreToQuery, watched: false),
-            builder: (context, snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return const Center(child: CircularProgressIndicator());
-              }
-              if(!snapshot.hasData){
-                return const Text("NO MOVIES");
-              }
-              if(snapshot.hasError){
-                return Text("ERROR DETECTED ${snapshot.error} ${snapshot.hasError}");
-              }
-
-              List<Movie> movies = snapshot.requireData;
-              movies.sort();
-
-              return ListView.builder(
-                itemCount: movies.length,
-                itemBuilder: (context, index){
-                  final Movie movie = movies[index];
-                  return PlanningMovieCard(
-                    movie: movie, 
-                    onAction: (){setState(() {});}
-                  ); 
-                }
-              );
-            }
-          ),
+          child: PlanningMoviesList(key: UniqueKey(), movieTitle: titleToQuery, movieGenre: genreToQuery!)
         )
       ],
     );

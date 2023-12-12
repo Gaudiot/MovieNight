@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:movie_night/entities/movie.dart';
-import 'package:movie_night/shared/envs/.env.dart';
 
-const authToken = Envs.TMDB_TOKEN;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movie_night/entities/movie/movie.dart';
+
+String authToken = dotenv.env["TMDB_API_KEY"] ?? "";
 
 class TmdbApi{
   final options = BaseOptions(
@@ -17,7 +18,7 @@ class TmdbApi{
     dio = Dio(options);
   }
 
-  Future<Movie> getMovieByTmdbId(String movieId) async {
+  Future<Movie> _getMovieByTmdbId(String movieId) async {
     Response result = await dio.get('/movie/$movieId',
       options: Options(
         headers: {
@@ -51,12 +52,12 @@ class TmdbApi{
   }
 
   Future<List<Movie>> getMovies({
-    required String movieName,
+    required String movieTitle,
     required int page
-  }) async{
+  }) async {
     Response result = await dio.get('/search/movie',
       queryParameters: {
-        "query": movieName,
+        "query": movieTitle,
         "page": page
       },
       options: Options(
@@ -76,7 +77,7 @@ class TmdbApi{
     List<Movie> simplifiedMovieList = await Future.wait(movieList.map((movie) async {
       String movieId = movie["id"].toString();
 
-      Movie completeMovie = await getMovieByTmdbId(movieId);
+      Movie completeMovie = await _getMovieByTmdbId(movieId);
 
       return completeMovie;
     }));

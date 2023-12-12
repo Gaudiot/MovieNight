@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/components/movie_card.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/shared/components/movie_card.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 
 Movie twixMovie = Movie(
   imdbId: "fofolinda",

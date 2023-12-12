@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/utils/time_formatter.dart';
@@ -8,7 +8,8 @@ class TimeInfo extends StatelessWidget{
   const TimeInfo({super.key});
 
   Future<Map<String, int>> info() async{
-    List<Movie> movies = await MoviesRepository.findMoviesWhere(watched: true);
+    // List<Movie> movies = await MoviesRepository.findMoviesWhere(watched: true);
+    List<Movie> movies = [];
 
     int moviesSize = movies.length;
     int moviesTotalTime = movies.fold<int>(0, (previousValue, movie) => previousValue + movie.runtime);

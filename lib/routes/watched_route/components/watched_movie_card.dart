@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/components/movie_card.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/shared/components/movie_card.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 
 class WatchedMovieCard extends StatelessWidget{
@@ -13,15 +13,15 @@ class WatchedMovieCard extends StatelessWidget{
 
   Future<void> toggleFavorite() async{
     final String movieId = movie.getImdbId();
-    await MoviesRepository.toggleFavoriteMovie(movieId);
+    await moviesRepository.toggleMovieFavorite(movieId);
 
     onAction();
   }
 
   Future<void> markAsUnwatched() async{
     final String movieId = movie.getImdbId();
-    await MoviesRepository.toggleWatchMovie(movieId);
-    if(movie.favorite) await MoviesRepository.toggleFavoriteMovie(movieId);
+    await moviesRepository.toggleMovieWatched(movieId);
+    if(movie.favorite) await moviesRepository.toggleMovieFavorite(movieId);
 
     onAction();
   }
