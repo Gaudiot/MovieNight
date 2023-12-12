@@ -20,8 +20,10 @@ class Profile extends StatelessWidget {
 
 
 class _ErasaDataButton extends StatelessWidget{
+  final MoviesRepository moviesRepository = MoviesRepository();
+
   Future<void> _eraseMovieData() async{
-      await MoviesRepository.dropMovies();
+    await moviesRepository.clearMovies();
   }
 
   @override

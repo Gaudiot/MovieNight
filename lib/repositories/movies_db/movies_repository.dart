@@ -1,72 +1,103 @@
-import 'dart:convert';
-
-import 'package:movie_night/entities/movie.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/local_storage.dart';
+import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
+import 'package:movie_night/repositories/movies_db/movies_mock_db.dart';
 
-class MoviesRepository {
-  static Future<List<Movie>> getMovies() async{
-    List<String> encodedMovies = await LocalStorage.getStringList('movies');
+class MoviesRepository implements IMovieRepository{
+  @override
+  Future<List<Movie>> getAllMovies() async {
+    final List<String> moviesRaw = await LocalStorage.getStringList("movies");
 
-    List<Movie> movies = encodedMovies.map<Movie>((movie) => Movie.fromMap(jsonDecode(movie))).toList();
-
-    return movies;
-  }
-
-  static Future<List<Movie>> findMoviesWhere({String? title, String? genrer, bool? watched}) async{
-    List<Movie> movies = await getMovies();
-    if(title != null && title.isNotEmpty) movies = movies.where((movie) => movie.title.toLowerCase().contains(title.toLowerCase())).toList();
-    if(genrer != null && genrer != "All") movies = movies.where((movie) => movie.genres.contains(genrer)).toList();
-    if(watched != null) movies = movies.where((movie) => movie.watched == watched).toList();
+    // final List<Movie> movies = moviesRaw.map<Movie>((movie) => Movie.fromString(movie)).toList();
+    final List<Movie> movies = allMovies;
 
     return movies;
   }
 
-  static Future<Movie?> findMovieById(String id) async{
-    List<Movie> movies = await getMovies();
-    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == id);
+  @override
+  Future<List<Movie>> getMovies({String? movieTitle, String? movieGenre, bool watched = false}) async {
+    List<Movie> movies = await getAllMovies();
+    debugPrint("comp: ${movieTitle != null} & title:$movieTitle & ${movies.length}");
+    
+    movies = movies.where((movie){
+      if(movie.watched != watched) return false;
+      if(movieGenre != null && movieGenre.isNotEmpty && movie.genres.contains(movieGenre) == false) return false;
+      if(movieTitle != null && movieTitle.isNotEmpty && movie.titleContains(movieTitle) == false) return false;
+
+      return true;
+    }).toList();
+    debugPrint("new length ${movies.length}");
+
+    return movies;
+  }
+
+  @override
+  Future<Movie?> getMovieById(String movieId) async{
+    List<Movie> movies = await getAllMovies();
+    final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
 
     if(movieIndex == -1) return null;
 
     return movies[movieIndex];
   }
 
-  static Future<void> toggleWatchMovie(String movieId) async{
-    List<Movie> movies = await getMovies();
-    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == movieId);
-    movies[movieIndex].watched = !movies[movieIndex].watched;
+  @override
+  Future<List<Movie>> getMoviesByGenre(String genre) async {
+    List<Movie> movies = await getAllMovies();
+    movies = movies.where((movie) => movie.genres.contains(genre)).toList();
 
-    await saveMovies(movies);
+    return movies;
   }
 
-  static Future<void> deleteById(String movieId) async{
-    List<Movie> movies = await getMovies();
-    movies.removeWhere((movie) => movie.getImdbId()== movieId);
+  @override
+  Future<void> removeMovieFromPlanning(String movieId) async {
+    List<Movie> movies = await getAllMovies();
+    final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
 
-    await saveMovies(movies);
+    movies.removeAt(movieIndex);
+
+    final rawMovies = movies.map((movie) => movie.toString()).toList();
+    await LocalStorage.setStringList("movies", rawMovies);
   }
 
-  static Future<void> toggleFavoriteMovie(String movieId) async{
-    List<Movie> movies = await getMovies();
-    int movieIndex = movies.indexWhere((movie) => movie.getImdbId() == movieId);
-    movies[movieIndex].favorite = !movies[movieIndex].favorite;
-
-    await saveMovies(movies);
-  }
-
-  static Future<void> addMovieToPlanning(Movie movie) async{
-    if((await findMovieById(movie.getImdbId())) != null) return;
-    List<Movie> movies = await getMovies();
+  @override
+  Future<void> addMovieToPlanning(Movie movie) async {
+    List<Movie> movies = await getAllMovies();
     movies.add(movie);
 
-    await saveMovies(movies);
+    final rawMovies = movies.map((movie) => movie.toString()).toList();
+    await LocalStorage.setStringList("movies", rawMovies);
   }
 
-  static Future<void> saveMovies(List<Movie> movies) async{
-    List<String> newEncodedMovies = movies.map<String>((movie) => jsonEncode(movie.toMap())).toList();
-    await LocalStorage.setStringList("movies", newEncodedMovies);
+  @override
+  Future<void> clearMovies() async {
+    await LocalStorage.clearKey("movies");
   }
 
-  static Future<void> dropMovies() async{
-    await LocalStorage.setStringList("movies", []);
+  @override
+  Future<void> toggleMovieFavorite(String movieId) async {
+    List<Movie> movies = await getAllMovies();
+    final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
+    final movie = movies[movieIndex];
+
+    movie.favorite = !movie.favorite;
+    movies[movieIndex] = movie;
+
+    final rawMovies = movies.map((movie) => movie.toString()).toList();
+    await LocalStorage.setStringList("movies", rawMovies);
+  }
+
+  @override
+  Future<void> toggleMovieWatched(String movieId) async {
+    List<Movie> movies = await getAllMovies();
+    final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
+    final movie = movies[movieIndex];
+
+    movie.favorite = !movie.favorite;
+    movies[movieIndex] = movie;
+
+    final rawMovies = movies.map((movie) => movie.toString()).toList();
+    await LocalStorage.setStringList("movies", rawMovies);
   }
 }

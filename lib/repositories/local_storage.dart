@@ -68,10 +68,17 @@ class LocalStorage{
     return prefs.getStringList("$storagePrefix$key") ?? [];
   }
 
+  //CUSTOM COMMANDS--------------------------------------------------------------------------------------------------------------
+
   static Future<bool> keyExists(String key) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Set<String> keys = prefs.getKeys();
     return keys.contains("$storagePrefix$key");
+  }
+
+  static Future<void> clearKey(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove("$storagePrefix$key");
   }
 }

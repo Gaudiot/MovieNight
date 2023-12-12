@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/components/movie_card.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/shared/components/movie_card.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 
 class PlanningMovieCard extends StatelessWidget{
@@ -12,14 +12,14 @@ class PlanningMovieCard extends StatelessWidget{
 
   Future<void> removeMovie() async{
     final String movieId = movie.getImdbId();
-    await MoviesRepository.deleteById(movieId);
+    await moviesRepository.removeMovieFromPlanning(movieId);
 
     onAction();
   }
 
   Future<void> markAsWatched() async{
     final String movieId = movie.getImdbId();
-    await MoviesRepository.toggleWatchMovie(movieId);
+    await moviesRepository.toggleMovieWatched(movieId);
 
     onAction();
   }

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_night/routes/movie_detail/movie_detail.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/entities/movie.dart';
+import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/utils/time_formatter.dart';
 
 class MovieCard extends StatelessWidget{
