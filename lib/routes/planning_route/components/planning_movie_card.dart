@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
 import 'package:movie_night/shared/components/movie_card.dart';
 import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 
 class PlanningMovieCard extends StatelessWidget{
   final Movie movie;
-  final MoviesRepository moviesRepository = MoviesRepository();
+  final IMovieRepository moviesRepository = MoviesRepository();
   final Function onAction;
 
   PlanningMovieCard({super.key, required this.movie, required this.onAction});

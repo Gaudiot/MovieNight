@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:movie_night/entities/movie/movie.dart';
+import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/planning_route/components/planning_movie_card.dart';
 
@@ -14,7 +15,7 @@ class PlanningMoviesList extends StatefulWidget {
 }
 
 class _PlanningMoviesListState extends State<PlanningMoviesList> {
-  final MoviesRepository moviesRepository = MoviesRepository();
+  final IMovieRepository moviesRepository = MoviesRepository();
 
   Future<List<Movie>>? movies;
 

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_night/routes/movie_detail/movie_detail.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/utils/time_formatter.dart';
@@ -15,7 +15,7 @@ class MovieCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetail(movie),));
+        context.push('/movie/${movie.imdbId}');
       },
       child: Container(
         decoration: BoxDecoration(

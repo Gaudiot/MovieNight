@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:movie_night/routes/dashboard/subroutes/profile_route/components/time_info.dart';
+import 'package:movie_night/routes/profile_route/components/time_info.dart';
 import 'package:movie_night/shared/app_colors.dart';
 
 class Profile extends StatelessWidget {

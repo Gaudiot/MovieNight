@@ -31,8 +31,6 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
       final movies = await Https().getMoviesByTitle(widget.movieTitle, page: pageKey, limit: _numberOfMoviesPerRequest);
       final isLastPage = movies.length < _numberOfMoviesPerRequest;
 
-      debugPrint("movies --> ${movies.length} & ${widget.movieTitle}");
-
       if(isLastPage){
         _pagingController.appendLastPage(movies);
       }else{
@@ -47,8 +45,6 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("printing title ${widget.movieTitle}");
-
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: PagedListView<int, Movie>(
@@ -58,12 +54,23 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
             return CatalogMovieCard(movie: movie);
           },
           noItemsFoundIndicatorBuilder: (context){
-            return (widget.movieTitle.isEmpty ? Placeholder() : _NoMoviesFound());
+            return (widget.movieTitle.isEmpty ? const _NoMovieSearch() : const _NoMoviesFound());
           },
           firstPageErrorIndicatorBuilder: (context) => const _ErrorFetchingData(),
           newPageErrorIndicatorBuilder: (context) => const _ErrorFetchingData(),
         ),
       )
+    );
+  }
+}
+
+class _NoMovieSearch extends StatelessWidget {
+  const _NoMovieSearch({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Search for a movie to have fun!")
     );
   }
 }

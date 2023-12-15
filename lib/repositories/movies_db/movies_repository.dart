@@ -18,7 +18,6 @@ class MoviesRepository implements IMovieRepository{
   @override
   Future<List<Movie>> getMovies({String? movieTitle, String? movieGenre, bool watched = false}) async {
     List<Movie> movies = await getAllMovies();
-    debugPrint("comp: ${movieTitle != null} & title:$movieTitle & ${movies.length}");
     
     movies = movies.where((movie){
       if(movie.watched != watched) return false;
@@ -27,7 +26,6 @@ class MoviesRepository implements IMovieRepository{
 
       return true;
     }).toList();
-    debugPrint("new length ${movies.length}");
 
     return movies;
   }
