@@ -38,6 +38,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/images/
     - .env
 
 flutter_launcher_icons:

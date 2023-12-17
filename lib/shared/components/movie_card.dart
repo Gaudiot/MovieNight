@@ -18,11 +18,13 @@ class MovieCard extends StatelessWidget{
         context.push('/movie/${movie.imdbId}');
       },
       child: Container(
+        margin: const EdgeInsets.symmetric(
+          vertical: 5
+        ),
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(5)
+          borderRadius: BorderRadius.circular(5),
         ),
-        margin: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           children: [
             CachedNetworkImage(
@@ -35,13 +37,29 @@ class MovieCard extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${movie.title} (${movie.year})'),
+                  Text('${movie.title} (${movie.year})',
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                      color: AppColors.black
+                    ),
+                  ),
                   Row(
                     children: [
-                      const Icon(Icons.star),
-                      Text(movie.rating.toStringAsFixed(2)),
-                      const Icon(Icons.schedule),
-                      Text(timeFormatter(movie.runtime)),
+                      const Icon(Icons.star,
+                        color: AppColors.black,
+                      ),
+                      Text(movie.rating.toStringAsFixed(2),
+                        style: Theme.of(context).textTheme.labelLarge!.apply(
+                          color: AppColors.black
+                        ),
+                      ),
+                      const Icon(Icons.schedule,
+                        color: AppColors.black,
+                      ),
+                      Text(timeFormatter(movie.runtime),
+                        style: Theme.of(context).textTheme.labelLarge!.apply(
+                          color: AppColors.black
+                        ),
+                      )
                     ],
                   )
                 ],
