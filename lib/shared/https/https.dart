@@ -7,8 +7,18 @@ class Https implements IHttps {
   
   @override
   Future<List<Movie>> getMoviesByTitle(String movieTitle, {int page = 1, int limit = 10}) async {
-    final movies = await tmdbApi.getMovies(movieTitle: movieTitle, page: page);
+    final movies = await tmdbApi.getMovies(
+      movieTitle: movieTitle,
+      page: page
+    );
 
     return movies;
+  }
+  
+  @override
+  Future<Movie?> getMovieById(String movieId) async {
+    final Movie? movie = await tmdbApi.getMovie(id: movieId);
+    
+    return movie;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'package:movie_night/entities/movie/movie.dart';
-import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/utils/time_formatter.dart';
 

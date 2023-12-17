@@ -55,9 +55,4 @@ class Movie implements Comparable<Movie>{
     final jsonMovie = jsonDecode(movieRaw);
     return Movie.fromJson(jsonMovie);
   }
-
-  String toString(){
-    final encodedMovie = jsonEncode(this);
-    return encodedMovie;
-  }
 }

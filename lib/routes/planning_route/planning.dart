@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:movie_night/routes/planning_route/components/planning_movies_list.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/planning_route/components/genre_filter.dart';
-import 'package:movie_night/routes/planning_route/components/planning_movie_card.dart';
 
 class Planning extends StatefulWidget{
 

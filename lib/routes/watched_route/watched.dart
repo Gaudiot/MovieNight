@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:movie_night/routes/watched_route/components/watched_movies_list.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:movie_night/routes/watched_route/components/watched_movie_card.dart';
 
 class Watched extends StatefulWidget{
 

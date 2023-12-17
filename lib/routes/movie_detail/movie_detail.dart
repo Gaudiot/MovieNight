@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:movie_night/routes/movie_detail/components/genre_item.dart';
-import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/utils/time_formatter.dart';
+import 'package:movie_night/routes/movie_detail/components/display_genres.dart';
+import 'package:movie_night/routes/movie_detail/components/movie_info.dart';
+import 'package:movie_night/shared/https/https.dart';
 
 class MovieDetail extends StatefulWidget{
   final String movieId;
@@ -31,7 +32,7 @@ class _MovieDetailState extends State<MovieDetail> {
   Future<Movie?> getMovie(String movieId) async {
     if(movieId.isEmpty) return null;
 
-    final movie = await movieRepository.getMovieById(movieId);
+    final Movie? movie = await Https().getMovieById(movieId);
     return movie;
   }
 
@@ -47,32 +48,23 @@ class _MovieDetailState extends State<MovieDetail> {
         final movie = snapshot.data;
 
         if(movie == null){
-          return const Placeholder();
+          return const Column(
+            children: [
+              _BackBar("No movie found"),
+              Expanded(
+                child: Center(
+                  child: _NoMovieFound()
+                )
+              ),
+            ],
+          );
         }else{
           return Container(
-            color: AppColors.blue,
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => {context.pop()}, 
-                      icon: const Icon(Icons.arrow_back, color: AppColors.white)
-                    ),
-                    Expanded(
-                      child: Text(
-                        movie.title, 
-                        style: const TextStyle(
-                          color: AppColors.white,
-                          fontSize: 20
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                  ],
-                ),
+                _BackBar(movie.title),
                 Row(
                   children: [
                     CachedNetworkImage(
@@ -82,87 +74,60 @@ class _MovieDetailState extends State<MovieDetail> {
                       errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
                     ),
                     const SizedBox(width: 20),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          color: AppColors.black,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(movie.title, style: const TextStyle(
-                              fontSize: 30,
-                              color: AppColors.yellow
-                              ),
-                              overflow: TextOverflow.visible,
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                const Icon(Icons.schedule, color: AppColors.white),
-                                Text(timeFormatter(movie.runtime), style: const TextStyle(
-                                  color: AppColors.white
-                                )),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                const Icon(Icons.star,  color: AppColors.white,),
-                                Text(movie.rating.toStringAsFixed(2), style: const TextStyle(
-                                  color: AppColors.white
-                                )),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                const Icon(Icons.calendar_month,  color: AppColors.white,),
-                                Text("${movie.year}", style: const TextStyle(
-                                  color: AppColors.white
-                                )),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
+                    MovieInfo(movie: movie)
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: Wrap(
-                    spacing: 5,
-                    children: [
-                      for(String genre in movie.genres)
-                        GenreItem(genre)
-                    ]
-                  ),
-                ),
-                const Text(
-                  "Synopsis",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.yellow
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.black,
-                    borderRadius: BorderRadius.all(Radius.circular(5))
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(movie.synopsis, style: const TextStyle(
-                    color: AppColors.white
-                  ))
-                )
+                DisplayGenres(movie.genres),
+                _Synopsis(movie.synopsis)
               ],
             ),
           );
         }
       }
+    );
+  }
+}
+
+class _BackBar extends StatelessWidget {
+  final String text;
+  const _BackBar(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () => {context.pop()}, 
+          icon: const FaIcon(FontAwesomeIcons.arrowLeft)
+        ),
+        Expanded(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.titleLarge,
+            overflow: TextOverflow.ellipsis,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _Synopsis extends StatelessWidget {
+  final String movieSynopsis;
+  const _Synopsis(this.movieSynopsis, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Synopsis", style: Theme.of(context).textTheme.displayMedium),
+          const SizedBox(height: 10),
+          Text(movieSynopsis)
+        ],
+      ),
     );
   }
 }
