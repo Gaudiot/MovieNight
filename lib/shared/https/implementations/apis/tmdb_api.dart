@@ -6,26 +6,23 @@ import 'package:movie_night/entities/movie/movie.dart';
 String authToken = dotenv.env["TMDB_API_KEY"] ?? "";
 
 class TmdbApi{
-  final options = BaseOptions(
+  final _options = BaseOptions(
     baseUrl: "https://api.themoviedb.org/3",
     connectTimeout: const Duration(seconds: 5),
     receiveTimeout: const Duration(seconds: 3),
+    headers: {
+      "authorization": "Bearer $authToken"
+    }
   );
   
   late final Dio dio;
 
   TmdbApi(){
-    dio = Dio(options);
+    dio = Dio(_options);
   }
 
   Future<Movie> _getMovieByTmdbId(String movieId) async {
-    Response result = await dio.get('/movie/$movieId',
-      options: Options(
-        headers: {
-          "authorization": "Bearer $authToken"
-        }
-      )
-    );
+    Response result = await dio.get('/movie/$movieId');
     var movieInfo = result.data;    
 
     String posterPath = movieInfo['poster_path'] != null ? 
@@ -59,12 +56,7 @@ class TmdbApi{
       queryParameters: {
         "query": movieTitle,
         "page": page
-      },
-      options: Options(
-        headers: {
-          "authorization": "Bearer $authToken"
-        }
-      )
+      }
     );
     
     List<dynamic> movieList = result.data['results'];
@@ -85,5 +77,36 @@ class TmdbApi{
     simplifiedMovieList = simplifiedMovieList.where((movie) => movie.getImdbId() != "null").toList();
 
     return simplifiedMovieList;
+  }
+
+  Future<Movie?> getMovie({required String id}) async {
+    try {
+      Response response = await dio.get("/movie/$id");
+      
+      Movie movie = _dataToMovie(response.data);
+
+      return movie;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Movie _dataToMovie(dynamic rawData){
+    String posterPath = rawData['poster_path'] != null ? 
+      "https://image.tmdb.org/t/p/original${rawData['poster_path']}" 
+      : "https://d994l96tlvogv.cloudfront.net/uploads/film/poster/poster-image-coming-soon-placeholder-no-logo-500-x-740_29376.png";
+
+    Movie movie = Movie(
+      imdbId: rawData["imdb_id"],
+      title: rawData["title"],
+      year: (rawData["release_date"] as String).isNotEmpty ? DateTime.parse(rawData["release_date"]).year : 9999,
+      runtime: rawData["runtime"],
+      genres: (rawData["genres"] as List<dynamic>).map<String>((rawGenre) => rawGenre["name"]).toList(),
+      rating: rawData["vote_average"],
+      synopsis: rawData["overview"],
+      posterPath: posterPath
+    );
+
+    return movie;
   }
 }

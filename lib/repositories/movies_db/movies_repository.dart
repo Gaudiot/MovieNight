@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:movie_night/entities/movie/movie.dart';
 import 'package:movie_night/repositories/local_storage.dart';
 import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
@@ -9,8 +8,8 @@ class MoviesRepository implements IMovieRepository{
   Future<List<Movie>> getAllMovies() async {
     final List<String> moviesRaw = await LocalStorage.getStringList("movies");
 
-    // final List<Movie> movies = moviesRaw.map<Movie>((movie) => Movie.fromString(movie)).toList();
-    final List<Movie> movies = allMovies;
+    final List<Movie> movies = moviesRaw.map<Movie>((movie) => Movie.fromString(movie)).toList();
+    // final List<Movie> movies = allMovies;
 
     return movies;
   }
