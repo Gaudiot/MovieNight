@@ -3,12 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import 'package:movie_night/shared/pages.dart';
+import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/routes/catalog_route/catalog.dart';
-import 'package:movie_night/routes/movie_detail/movie_detail.dart';
-import 'package:movie_night/routes/planning_route/planning.dart';
 import 'package:movie_night/routes/profile_route/profile.dart';
 import 'package:movie_night/routes/watched_route/watched.dart';
-import 'package:movie_night/shared/pages.dart';
+import 'package:movie_night/routes/planning_route/planning.dart';
+import 'package:movie_night/routes/movie_detail/movie_detail.dart';
 
 final appRouterConfig = GoRouter(
   routes: [
@@ -97,6 +98,7 @@ class _TabsLayoutState extends State<_TabsLayout> {
       child: PersistentTabView(context, 
         screens: _screens,
         items: _items,
+        backgroundColor: AppColors.black,
       ),
     );
   }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/shared/components/movie_card.dart';
+
+import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/entities/movie/movie.dart';
+import 'package:movie_night/shared/components/movie_card.dart';
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
+import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dart';
 
 class CatalogMovieCard extends StatefulWidget {
   final Movie movie;
@@ -13,7 +16,7 @@ class CatalogMovieCard extends StatefulWidget {
 }
 
 class _CatalogMovieCardState extends State<CatalogMovieCard> {
-  final moviesRepository = MoviesRepository();
+  final IMovieRepository moviesRepository = MoviesRepository();
 
   Future<bool>? _isMovieInList;
 
@@ -23,7 +26,7 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     _isMovieInList = checkMovieInList(widget.movie.imdbId);
   }
 
-  Future<void> addMovieToPlanning(Movie movie) async{
+  Future<void> addMovieToPlanning(Movie movie) async {
     moviesRepository.addMovieToPlanning(movie);
     
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -32,10 +35,11 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     ));
   }
 
-  Future<bool> checkMovieInList(String movieId) async{
+  Future<bool> checkMovieInList(String movieId) async {
     Movie? movie = await moviesRepository.getMovieById(movieId);
 
-    return (movie != null);
+    bool result = (movie != null);
+    return result;
   }
 
   @override
@@ -45,7 +49,12 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
     return FutureBuilder(
       future: _isMovieInList,
       builder: (context, snapshot) {
-        if(!snapshot.hasData || snapshot.hasError) return const Placeholder();
+        if(snapshot.hasError){
+          return Text("Error: ${snapshot.error}");
+        }
+        if(!snapshot.hasData){
+          return const Placeholder();
+        }
 
         final bool isMovieInList = snapshot.requireData;
 
@@ -54,7 +63,9 @@ class _CatalogMovieCardState extends State<CatalogMovieCard> {
           buttons: [
             IconButton(
               onPressed: (isMovieInList) ? null : () => {addMovieToPlanning(movie)},
-              icon: const Icon(Icons.add_circle_outline)
+              icon: const Icon(Icons.add_circle_outline),
+              color: AppColors.black,
+              disabledColor: AppColors.gray,
             )
           ],
         );

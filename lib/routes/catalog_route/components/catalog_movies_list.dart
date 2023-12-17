@@ -45,6 +45,10 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.movieTitle.isEmpty){
+      return const _NoMovieSearch();
+    }
+
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: PagedListView<int, Movie>(
@@ -54,10 +58,10 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
             return CatalogMovieCard(movie: movie);
           },
           noItemsFoundIndicatorBuilder: (context){
-            return (widget.movieTitle.isEmpty ? const _NoMovieSearch() : const _NoMoviesFound());
+            return const _NoMoviesFound();
           },
           firstPageErrorIndicatorBuilder: (context) => const _ErrorFetchingData(),
-          newPageErrorIndicatorBuilder: (context) => const _ErrorFetchingData(),
+          newPageErrorIndicatorBuilder: (context) => const _ErrorFetchingData()
         ),
       )
     );
@@ -69,8 +73,18 @@ class _NoMovieSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Search for a movie to have fun!")
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset('assets/images/popcorn_bucket.png',
+          height: 300,
+        ),
+        Text("What movie you want to watch next?",
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
@@ -80,8 +94,18 @@ class _NoMoviesFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("No movies found with the given name.")
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset('assets/images/no_movie.png',
+          height: 300,
+        ),
+        Text("Sorry, we couldn't find the movie with that title.",
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

@@ -26,55 +26,62 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const _MovieTitleWarning(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: AppColors.black
-            ),
-            child: TextField(
-              decoration: const InputDecoration(
-                suffixIcon: Icon(Icons.search, color: AppColors.yellow),
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                hintText: "Search movie...",
-                hintStyle: TextStyle(color: AppColors.gray)
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 13, 13, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const _MovieSearchWarning(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: AppColors.black
               ),
-              style: const TextStyle(color: AppColors.yellow),
-              cursorColor: AppColors.yellow,
-              
-              onSubmitted: updateMovieTitleToQuery
+              child: TextField(
+                decoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.search, color: AppColors.yellow),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: "Search movie...",
+                  hintStyle: TextStyle(color: AppColors.gray)
+                ),
+                style: const TextStyle(color: AppColors.yellow),
+                cursorColor: AppColors.yellow,
+                
+                onSubmitted: updateMovieTitleToQuery
+              ),
             ),
           ),
-        ),
-        if(movieTitleToQuery == "twix") const HiddenMovie(),
-        Expanded(
-          child: CatalogMoviesList(key: UniqueKey(), movieTitle: movieTitleToQuery)
-        )
-      ],
+          if(movieTitleToQuery == "twix") const HiddenMovie(),
+          Expanded(
+            child: CatalogMoviesList(key: UniqueKey(), movieTitle: movieTitleToQuery)
+          )
+        ],
+      ),
     );
   }
 }
 
-class _MovieTitleWarning extends StatelessWidget {
-  const _MovieTitleWarning({super.key});
+class _MovieSearchWarning extends StatelessWidget {
+  const _MovieSearchWarning({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.yellow,
+        color: AppColors.yellowLight,
         borderRadius: BorderRadius.circular(10)
       ),
-      child: const Text("Due to technical issues, you need to search for the movie name in english."),
+      child: Text("Due to technical issues, you need to search for the movie name in english.",
+        style: Theme.of(context).textTheme.bodyMedium!.apply(
+          color: AppColors.black,
+        ),
+      ),
     );
   }
 }
