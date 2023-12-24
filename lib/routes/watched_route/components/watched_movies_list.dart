@@ -54,8 +54,17 @@ class WatchedMoviesListState extends State<WatchedMoviesList> {
           itemBuilder: (context, index){
             final Movie movie = movies[index];
             return WatchedMovieCard(
-              movie: movie, 
-              onAction: (){setState(() {});}
+              movie: movie,
+              onUnwatchMovie: (){
+                setState(() {
+                  movies.removeAt(index);
+                });
+              },
+              onFavoriteMovie: (){
+                setState(() {
+                  movies[index].favorite = !movies[index].favorite;
+                });
+              },
             ); 
           }
         );

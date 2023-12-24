@@ -9,5 +9,6 @@ abstract class IMovieRepository{
   Future<void> toggleMovieFavorite(String movieId);
   Future<void> addMovieToPlanning(Movie movie);
   Future<void> removeMovieFromPlanning(String movieId);
+  Future<void> setMovieFavorite(String movieId, bool value);
   Future<void> clearMovies();
 }

@@ -25,13 +25,13 @@ class _WatchedState extends State<Watched> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 13, 13, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
@@ -51,18 +51,19 @@ class _WatchedState extends State<Watched> {
               onChanged: (movieName) => updateQueryTitle(movieName),
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            "Watched",
-            style: TextStyle(color: AppColors.yellow, fontSize: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              "Watched",
+              // style: TextStyle(color: AppColors.yellow, fontSize: 32),
+              style: Theme.of(context).textTheme.displaySmall
+            ),
           ),
-        ),
-        Expanded(
-          child: WatchedMoviesList(key: UniqueKey(), movieTitle: titleToQuery)
-        )
-      ],
+          Expanded(
+            child: WatchedMoviesList(key: UniqueKey(), movieTitle: titleToQuery)
+          )
+        ],
+      ),
     );
   }
 }
