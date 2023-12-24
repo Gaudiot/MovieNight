@@ -55,9 +55,16 @@ class _PlanningMoviesListState extends State<PlanningMoviesList> {
           itemCount: movies.length,
           itemBuilder: (context, index){
             final Movie movie = movies[index];
+            void removeFromList(){
+              setState(() {
+                movies.removeAt(index);
+              });
+            }
+            
             return PlanningMovieCard(
-              movie: movie, 
-              onAction: (){setState(() {});}
+              movie: movie,
+              onWatchMovie: removeFromList,
+              onRemoveFromPlanning: removeFromList,
             ); 
           }
         );

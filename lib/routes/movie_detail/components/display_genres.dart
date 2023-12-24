@@ -12,6 +12,7 @@ class DisplayGenres extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Wrap(
         spacing: 5,
+        runSpacing: 5,
         children: [
           for(String genre in movieGenres)
             GenreItem(genre)

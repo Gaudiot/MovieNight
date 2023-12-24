@@ -20,7 +20,7 @@ class MoviesRepository implements IMovieRepository{
     
     movies = movies.where((movie){
       if(movie.watched != watched) return false;
-      if(movieGenre != null && movieGenre.isNotEmpty && movie.genres.contains(movieGenre) == false) return false;
+      if(movieGenre != null && movieGenre != "All" && movieGenre.isNotEmpty && movie.genres.contains(movieGenre) == false) return false;
       if(movieTitle != null && movieTitle.isNotEmpty && movie.titleContains(movieTitle) == false) return false;
 
       return true;
@@ -91,7 +91,7 @@ class MoviesRepository implements IMovieRepository{
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
     final movie = movies[movieIndex];
 
-    movie.favorite = !movie.favorite;
+    movie.watched = !movie.watched;
     movies[movieIndex] = movie;
 
     final rawMovies = movies.map((movie) => movie.toString()).toList();
