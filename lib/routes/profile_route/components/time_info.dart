@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:movie_night/entities/movie/movie.dart';
+import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/shared/app_colors.dart';
 import 'package:movie_night/utils/time_formatter.dart';
 
@@ -8,18 +9,17 @@ class TimeInfo extends StatelessWidget{
   const TimeInfo({super.key});
 
   Future<Map<String, int>> info() async{
-    // List<Movie> movies = await MoviesRepository.findMoviesWhere(watched: true);
-    List<Movie> movies = [];
+    final List<Movie> movies = await MoviesRepository().getMovies(watched: true);
 
     int moviesSize = movies.length;
     int moviesTotalTime = movies.fold<int>(0, (previousValue, movie) => previousValue + movie.runtime);
 
-    Map<String, int> teste = {
+    Map<String, int> result = {
       "quantity": moviesSize,
       "totalTime": moviesTotalTime
     };
 
-    return teste;
+    return result;
   }
   
   @override
@@ -69,12 +69,14 @@ class _TimeField extends StatelessWidget{
     return Row(
       children: [
         Text(
-          title, 
-          style: const TextStyle(color: AppColors.yellow, fontSize: 20),
+          title,
+          style: Theme.of(context).textTheme.headlineSmall!.apply(
+            color: AppColors.yellow
+          )
         ),
         Text(
-          info, 
-          style: const TextStyle(color: AppColors.gray, fontSize: 20),
+          info,
+          style: Theme.of(context).textTheme.titleLarge
         ),
       ],
     );

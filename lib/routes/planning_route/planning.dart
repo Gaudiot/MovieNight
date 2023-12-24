@@ -66,11 +66,11 @@ class _PlanningState extends State<Planning> {
               GenreFilter(onUpdate: updateQueryGenre, selectedGenre: genreToQuery!)
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
               "Planning",
-              style: TextStyle(color: AppColors.yellow, fontSize: 32),
+              style: Theme.of(context).textTheme.displaySmall
             ),
           ),
           Expanded(

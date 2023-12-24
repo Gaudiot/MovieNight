@@ -97,4 +97,17 @@ class MoviesRepository implements IMovieRepository{
     final rawMovies = movies.map((movie) => movie.toString()).toList();
     await LocalStorage.setStringList("movies", rawMovies);
   }
+
+  @override
+  Future<void> setMovieFavorite(String movieId, bool value) async {
+    List<Movie> movies = await getAllMovies();
+    final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
+    final movie = movies[movieIndex];
+
+    movie.favorite = value;
+    movies[movieIndex] = movie;
+
+    final rawMovies = movies.map((movie) => movie.toString()).toList();
+    await LocalStorage.setStringList("movies", rawMovies);
+  }
 }
