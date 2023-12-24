@@ -95,10 +95,15 @@ class _TabsLayoutState extends State<_TabsLayout> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: PersistentTabView(context, 
+      child: PersistentTabView(context,
         screens: _screens,
         items: _items,
         backgroundColor: AppColors.black,
+        stateManagement: false,
+        screenTransitionAnimation: const ScreenTransitionAnimation(
+          animateTabTransition: true, 
+          duration: Duration(milliseconds: 500)
+        ),
       ),
     );
   }

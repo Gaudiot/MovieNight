@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:movie_night/routes/planning_route/components/planning_movies_list.dart';
 import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/planning_route/components/genre_filter.dart';
+import 'package:movie_night/routes/planning_route/components/planning_movies_list.dart';
 
 class Planning extends StatefulWidget{
 
@@ -14,7 +13,6 @@ class Planning extends StatefulWidget{
 }
 
 class _PlanningState extends State<Planning> {
-  final MoviesRepository moviesRepository = MoviesRepository();
   String titleToQuery = "";
   String? genreToQuery = "All";
 
@@ -32,13 +30,13 @@ class _PlanningState extends State<Planning> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(13, 13, 13, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
@@ -68,18 +66,18 @@ class _PlanningState extends State<Planning> {
               GenreFilter(onUpdate: updateQueryGenre, selectedGenre: genreToQuery!)
             ],
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            "Planning",
-            style: TextStyle(color: AppColors.yellow, fontSize: 32),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              "Planning",
+              style: TextStyle(color: AppColors.yellow, fontSize: 32),
+            ),
           ),
-        ),
-        Expanded(
-          child: PlanningMoviesList(key: UniqueKey(), movieTitle: titleToQuery, movieGenre: genreToQuery!)
-        )
-      ],
+          Expanded(
+            child: PlanningMoviesList(key: UniqueKey(), movieTitle: titleToQuery, movieGenre: genreToQuery!)
+          )
+        ],
+      ),
     );
   }
 }
