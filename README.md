@@ -1,33 +1,53 @@
-# Movie Night
+<h1 align="center"> Movie Night </h1>
 
-Movie Night is a mobile app developed in Flutter designed to enhance your movie-watching experience. It's born out of the need to:
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Gaudiot/MovieNight/main/assets/movie_night_icon.png" alt="Movie Night App Logo" width=350/>
+</p>
 
-1. Choose great movies for a cozy movie night with your loved ones.
-2. Keep track of movie recommendations from friends and family.
-3. Catalog the movies you've already watched and see your total viewing time.
+### Quick Reference
+1. [About](#about)
+2. [Feature](#⭐features)
+3. [Previews](#📱preview)
+4. [Techs](#⚙️techs)
+5. [Download](#⬇️download)
+6. [Contact](#📧contact)
 
-## Features
+# About
+Movie Night is my first app developed in Flutter and designed to enhance your movie-watching experience. It's born to help remember the recommendations of movies from friends and family, and to always know the best one between them. It also helps to  keep track of which movies were already seen.
 
-- Search for movies using the public TMDB API.
-- View movie details including plot summaries, ratings, and runtime.
-- Create a watchlist for movies you plan to watch in the future.
-- Organize your watchlist by filtering by genre.
-- Move watched movies to your watched list and mark favorites.
-- Track your movie-watching journey and see your total watch time.
+## ⭐Features
 
-## Usage
+- [x] Search for movies using the public TMDB API.
+- [x] View movie details, including runtime, synopsis and rating.
+- [x] Create a watchlist for movies you plan to watch in the future.
+- [x] Mark movies as watched.
+- [x] Mark movies as favorite.
+- [x] Filter lists by genres and/or titles.
+- [x] See your movie-watching statistics
+<br><br>
+- [ ] Authentication
+- [ ] Find out the movie streaming-providers.
+- [ ] A list with the oscar nominees.
+- [ ] Rate movies
+- [ ] Share with friends and family
 
-- Search for movies by entering a movie title.
-- Add movies you plan to watch to your "Planning" list.
-- Filter movies in your "Planning" list by genre.
-- After watching a movie, move it to your "Watched" list and mark it as a favorite.
-- Visit your profile page to see your movie-watching stats.
+## 📱Preview
 
-## Download
+![Movie Night preview](https://s12.gifyu.com/images/SVzPQ.gif)
 
-You can download the latest version of Movie Night from the following link: [Movie Night APK](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+## ⚙️Techs
+- Visual Studio Code
+- Git & Github
+- Dart/Flutter
+- APIs
 
-## Contributing
+## ⬇️Download
+
+You can download the latest version of Movie Night from the following link: [Movie Night APK](https://drive.google.com/file/d/139hV5F6nGLd5Pm3YliUDJFuUonoHm_ia/view?usp=sharing).
+<br>
+Or you can download it from the [playstore](https://play.google.com/store/apps/details?id=com.victorgaudiot.movie_night)
+
+## 🤝Contributing
 
 Contributions are welcome! If you'd like to contribute to Movie Night, please follow these steps:
 
@@ -36,16 +56,16 @@ Contributions are welcome! If you'd like to contribute to Movie Night, please fo
 3. Make your changes and test them thoroughly.
 4. Create a pull request with a clear description of your changes.
 
-## License
+## 📜License
 
 This project is licensed under the [MIT License](https://opensource.org/license/mit/).
 
-## Acknowledgments
+## 😄Acknowledgments
 
-We would like to thank the TMDB API for providing access to movie data.
+I would like to thank the TMDB API for providing access to movie data.
 
-## Contact
+## 📧Contact
 
-If you have any questions or suggestions, feel free to contact us at [victor.gaudiot@gmail.com].
+If you have any questions or suggestions, feel free to contact me at [victor.gaudiot@gmail.com].
 
 Happy Movie Night!
