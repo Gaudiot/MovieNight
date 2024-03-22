@@ -33,7 +33,7 @@ Movie Night is my first app developed in Flutter and designed to enhance your mo
 
 ## 📱Preview
 
-![Movie Night preview](https://s12.gifyu.com/images/SVzPQ.gif)
+![Movie Night preview](/assets/github/MovieNightPreview.gif)
 
 ## ⚙️Techs
 - Visual Studio Code
