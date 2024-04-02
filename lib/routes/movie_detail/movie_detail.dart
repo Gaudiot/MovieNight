@@ -8,6 +8,7 @@ import 'package:movie_night/repositories/movies_db/models/i_movie_repository.dar
 import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/movie_detail/components/display_genres.dart';
 import 'package:movie_night/routes/movie_detail/components/movie_info.dart';
+import 'package:movie_night/routes/movie_detail/components/streaming_list.dart';
 import 'package:movie_night/shared/https/https.dart';
 
 class MovieDetail extends StatefulWidget{
@@ -78,6 +79,7 @@ class _MovieDetailState extends State<MovieDetail> {
                   ],
                 ),
                 DisplayGenres(movie.genres),
+                StreamingList(movieId: movie.imdbId),
                 _Synopsis(movie.synopsis)
               ],
             ),
