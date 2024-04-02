@@ -109,4 +109,18 @@ class TmdbApi{
 
     return movie;
   }
+
+  Future<List<String>> getMovieStreamings({required String movieId, String locale = "BR"}) async {
+    String requestPath = "/movie/$movieId/watch/providers";
+    Response response = await dio.get(requestPath);
+    dynamic data = response.data;
+
+    if(data["results"] == null || data["results"]["BR"] == null){
+      return [];
+    }
+
+    List<String> streamings = (data["results"]["BR"]["flatrate"] as List<dynamic>).map<String>((result) => result["logo_path"]).toList();
+
+    return streamings;
+  }
 }
