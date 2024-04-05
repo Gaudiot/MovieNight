@@ -9,6 +9,7 @@ import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/movie_detail/components/display_genres.dart';
 import 'package:movie_night/routes/movie_detail/components/movie_info.dart';
 import 'package:movie_night/routes/movie_detail/components/streaming_list.dart';
+import 'package:movie_night/routes/movie_detail/components/trailer_player.dart';
 import 'package:movie_night/shared/https/https.dart';
 
 class MovieDetail extends StatefulWidget{
@@ -22,12 +23,17 @@ class MovieDetail extends StatefulWidget{
 
 class _MovieDetailState extends State<MovieDetail> {
   final IMovieRepository movieRepository = MoviesRepository();
-  Future<Movie?>? movie;
+  late Future<Movie?> movie;
 
   @override
   void initState() {
     super.initState();
     movie = getMovie(widget.movieId);
+  }
+  
+  @override
+  void dispose(){
+    super.dispose();
   }
 
   Future<Movie?> getMovie(String movieId) async {
@@ -40,6 +46,7 @@ class _MovieDetailState extends State<MovieDetail> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      // future: Future.wait([getMovie(widget.movieId), TmdbApi().getMovieTrailerIds(movieId: widget.movieId)]),
       future: movie,
       builder:(context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
@@ -60,28 +67,30 @@ class _MovieDetailState extends State<MovieDetail> {
             ],
           );
         }else{
-          return Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _BackBar(movie.title),
-                Row(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: movie.posterPath,
-                      height: 250,
-                      placeholder: (context, url) => const SizedBox(width: 167, height: 250, child: Placeholder()),
-                      errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
-                    ),
-                    const SizedBox(width: 20),
-                    MovieInfo(movie: movie)
-                  ],
-                ),
-                DisplayGenres(movie.genres),
-                StreamingList(movieId: movie.imdbId),
-                _Synopsis(movie.synopsis)
-              ],
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              child: Wrap(
+                children: [
+                  _BackBar(movie.title),
+                  Row(
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: movie.posterPath,
+                        height: 250,
+                        placeholder: (context, url) => const SizedBox(width: 167, height: 250, child: Placeholder()),
+                        errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
+                      ),
+                      const SizedBox(width: 20),
+                      MovieInfo(movie: movie)
+                    ],
+                  ),
+                  DisplayGenres(movie.genres),
+                  StreamingList(movieId: movie.imdbId),
+                  _Synopsis(movie.synopsis),
+                  TrailerPlayer(movieId: movie.imdbId)
+                ],
+              ),
             ),
           );
         }
