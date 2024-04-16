@@ -32,7 +32,6 @@ class _CatalogState extends State<Catalog> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const _MovieSearchWarning(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Container(
@@ -61,26 +60,6 @@ class _CatalogState extends State<Catalog> {
             child: CatalogMoviesList(key: UniqueKey(), movieTitle: movieTitleToQuery)
           )
         ],
-      ),
-    );
-  }
-}
-
-class _MovieSearchWarning extends StatelessWidget {
-  const _MovieSearchWarning({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.yellowLight,
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Text("Due to technical issues, you need to search for the movie name in english.",
-        style: Theme.of(context).textTheme.bodyMedium!.apply(
-          color: AppColors.black,
-        ),
       ),
     );
   }

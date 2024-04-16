@@ -66,34 +66,34 @@ class _MovieDetailState extends State<MovieDetail> {
               ),
             ],
           );
-        }else{
-          return SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              child: Wrap(
-                children: [
-                  _BackBar(movie.title),
-                  Row(
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: movie.posterPath,
-                        height: 250,
-                        placeholder: (context, url) => const SizedBox(width: 167, height: 250, child: Placeholder()),
-                        errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
-                      ),
-                      const SizedBox(width: 20),
-                      MovieInfo(movie: movie)
-                    ],
-                  ),
-                  DisplayGenres(movie.genres),
-                  StreamingList(movieId: movie.imdbId),
-                  _Synopsis(movie.synopsis),
-                  TrailerPlayer(movieId: movie.imdbId)
-                ],
-              ),
-            ),
-          );
         }
+
+        return Container(
+          margin: const EdgeInsets.all(20),
+          child: Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _BackBar(movie.title),
+                Row(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: movie.posterPath,
+                      height: 250,
+                      placeholder: (context, url) => const SizedBox(width: 167, height: 250, child: Placeholder()),
+                      errorWidget: (context, url, error) => const SizedBox(width: 167, height: 250, child: Center(child: Icon(Icons.error))),
+                    ),
+                    const SizedBox(width: 20),
+                    MovieInfo(movie: movie)
+                  ],
+                ),
+                DisplayGenres(movie.genres),
+                StreamingList(movieId: movie.imdbId),
+                _Synopsis(movie.synopsis),
+              ],
+            ),
+          ),
+        );
       }
     );
   }
