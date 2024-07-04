@@ -24,6 +24,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   auto_size_text: ^3.0.0
   youtube_player_flutter: ^8.1.2
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
