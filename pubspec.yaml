@@ -1,10 +1,10 @@
 name: movie_night
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 1.2.0+3
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.0.5 <4.0.0"
 
 dependencies:
   flutter:
@@ -24,11 +24,15 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   auto_size_text: ^3.0.0
   youtube_player_flutter: ^8.1.2
+  hive: ^4.0.0-dev.2
+  isar_flutter_libs: ^4.0.0-dev.13
+  path_provider: ^2.1.0
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
+
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.1
   json_serializable: ^6.7.1
@@ -59,7 +63,6 @@ flutter_launcher_icons:
   macos:
     generate: false
     image_path: "lib/assets/movie_night_icon.png"
-
 # To reset the app icon run the following commands
 # flutter clean
 # flutter pub get
