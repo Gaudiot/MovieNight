@@ -3,6 +3,7 @@ import "package:movie_night/src/base/network/apis/movie_api/movie_api.dart";
 import "package:movie_night/src/base/network/network.dart";
 import "package:movie_night/src/core/data/models/models.dart";
 import "package:movie_night/src/core/exceptions/network_exception.dart";
+import "package:movie_night/src/core/types/result_type.dart";
 
 part "package:movie_night/src/base/network/apis/movie_api/tmdb/tmdb_responses.dart";
 
@@ -30,6 +31,10 @@ class TmdbApi implements IMovieApi {
     }
 
     final List<String> moviesIds = _getMoviesIdsFromJson(result.value);
+    // Use this code to debug the Future.wait
+    // final moviesResult = [
+    //   for (final movieId in moviesIds) await getMovieDetails(movieId: movieId),
+    // ];
     final moviesResult = await Future.wait(
       List.generate(
         moviesIds.length,
@@ -54,7 +59,7 @@ class TmdbApi implements IMovieApi {
     int limit = 10,
   }) async {
     final result = await network.get(
-      url: "/search/movie/",
+      url: "/search/movie",
       queryParameters: {
         "query": name ?? "",
         "page": page.toString(),

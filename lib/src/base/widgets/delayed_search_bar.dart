@@ -83,7 +83,6 @@ class _DelayedSearchBarState extends State<DelayedSearchBar> {
         fillColor: AppColors.darkBlue,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 00,
         ),
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(

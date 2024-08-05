@@ -1,6 +1,7 @@
 import "package:dio/dio.dart";
 import "package:movie_night/src/base/network/network.dart";
 import "package:movie_night/src/core/exceptions/exceptions.dart";
+import "package:movie_night/src/core/types/result_type.dart";
 
 class DioNetwork implements INetwork {
   late final Dio _dio;

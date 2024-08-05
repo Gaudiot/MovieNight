@@ -1,6 +1,6 @@
-import "package:movie_night/src/base/network/network.dart";
 import "package:movie_night/src/core/data/models/models.dart";
 import "package:movie_night/src/core/exceptions/exceptions.dart";
+import "package:movie_night/src/core/types/result_type.dart";
 
 abstract class IMovieApi {
   Future<Result<List<Movie>, NetworkException>> discoverMovies({
