@@ -12,14 +12,23 @@ List<String> _getMoviesIdsFromJson(dynamic json) {
 }
 
 Movie _getMovieDetailsFromJson(dynamic json) {
+  const String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+
+  final posterPath = (json["poster_path"] as String?);
+  final backdropPath = (json["backdrop_path"] as String?);
+
+  final releaseDate = (json["release_date"] as String);
+
   return Movie(
     id: (json["id"] as int).toString(),
     title: json["title"] as String,
     synopsis: json["overview"] as String,
-    poster: json["poster_path"] as String,
-    backdropPoster: json["backdrop_path"] as String,
-    rating: json["vote_average"] as double,
-    releaseDate: DateTime.parse(json["release_date"]),
+    poster: (posterPath != null) ? "$baseImageUrl$posterPath" : null,
+    backdropPoster:
+        (backdropPath != null) ? "$baseImageUrl$backdropPath" : null,
+    rating: double.parse((json["vote_average"] as double).toStringAsFixed(2)),
+    releaseDate:
+        DateTime.parse(releaseDate.isEmpty ? "9999-01-01" : releaseDate),
     runtime: json["runtime"] as int,
     genres: List<String>.from(json["genres"].map((x) => x["name"])),
   );
