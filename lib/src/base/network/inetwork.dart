@@ -1,16 +1,6 @@
 import "package:movie_night/src/base/network/network.dart";
 import "package:movie_night/src/core/exceptions/exceptions.dart";
-
-class Result<T, E> {
-  final T? value;
-  final E? error;
-
-  Result.ok(this.value) : error = null;
-  Result.error(this.error) : value = null;
-
-  bool get isOk => value != null;
-  bool get hasError => error != null;
-}
+import "package:movie_night/src/core/types/result_type.dart";
 
 Result<T, E> ok<T, E>(T? value) => Result.ok(value);
 Result<T, E> error<T, E>(E? error) => Result.error(error);
