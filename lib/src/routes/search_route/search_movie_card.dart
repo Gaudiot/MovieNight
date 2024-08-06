@@ -130,7 +130,14 @@ class _Buttons extends StatelessWidget {
       children: [
         if (!isAddedToWatchlist && !isWatched) ...[
           UIButton(
-            onPressed: onAddToWatchlistPressed,
+            onPressed: () {
+              UISnackbar.show(
+                context,
+                state: SnackBarState.success,
+                message: "Added to watchlist",
+              );
+              onAddToWatchlistPressed();
+            },
             label: "Add Watchlist",
             suffixIcon: Assets.lib.assets.icons.addCircle.svg(
               width: 16,
@@ -148,7 +155,14 @@ class _Buttons extends StatelessWidget {
         Visibility(
           visible: !isWatched,
           child: UIButton(
-            onPressed: onWatchedPressed,
+            onPressed: () {
+              UISnackbar.show(
+                context,
+                state: SnackBarState.success,
+                message: "Added to watched",
+              );
+              onWatchedPressed();
+            },
             label: "Add Watched",
             suffixIcon: Assets.lib.assets.icons.checkCircle.svg(
               width: 16,
