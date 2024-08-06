@@ -9,6 +9,7 @@ import "package:movie_night/src/core/data/models/models.dart";
 import "package:movie_night/src/core/design/design.dart";
 import "package:movie_night/src/core/exceptions/exceptions.dart";
 import "package:movie_night/src/core/types/result_type.dart";
+import "package:movie_night/src/core/ui_snackbar.dart";
 import "package:movie_night/src/shared/utils/utils.dart";
 
 part "package:movie_night/src/routes/search_route/search_display_list.dart";
