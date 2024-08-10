@@ -11,7 +11,7 @@ import "package:movie_night/shared/app_colors.dart";
 import "package:movie_night/src/base/local_storage/local_storage.dart";
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load();
   setupInjections();
   await getIt<ILocalStorage>().init();
   runApp(const MainApp());
