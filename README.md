@@ -24,9 +24,9 @@ Movie Night is my first app developed in Flutter and designed to enhance your mo
 - [x] Mark movies as favorite.
 - [x] Filter lists by genres and/or titles.
 - [x] See your movie-watching statistics
+- [x] Find out the movie streaming-providers.
 <br><br>
 - [ ] Authentication
-- [ ] Find out the movie streaming-providers.
 - [ ] A list with the oscar nominees.
 - [ ] Rate movies
 - [ ] Share with friends and family

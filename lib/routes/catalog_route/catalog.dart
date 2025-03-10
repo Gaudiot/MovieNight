@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
-import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/shared/https/https.dart';
-import 'package:movie_night/repositories/movies_db/movies_repository.dart';
-import 'package:movie_night/routes/catalog_route/components/hidden_movie.dart';
-import 'package:movie_night/routes/catalog_route/components/catalog_movies_list.dart';
+import "package:flutter/material.dart";
+import "package:movie_night/repositories/movies_db/movies_repository.dart";
+import "package:movie_night/routes/catalog_route/components/catalog_movies_list.dart";
+import "package:movie_night/routes/catalog_route/components/hidden_movie.dart";
+import "package:movie_night/shared/app_colors.dart";
+import "package:movie_night/shared/https/https.dart";
 
 class Catalog extends StatefulWidget{
   const Catalog({super.key});
@@ -32,14 +31,13 @@ class _CatalogState extends State<Catalog> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const _MovieSearchWarning(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: AppColors.black
+                color: AppColors.black,
               ),
               child: TextField(
                 decoration: const InputDecoration(
@@ -47,40 +45,20 @@ class _CatalogState extends State<Catalog> {
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   hintText: "Search movie...",
-                  hintStyle: TextStyle(color: AppColors.gray)
+                  hintStyle: TextStyle(color: AppColors.gray),
                 ),
                 style: const TextStyle(color: AppColors.yellow),
                 cursorColor: AppColors.yellow,
                 
-                onSubmitted: updateMovieTitleToQuery
+                onSubmitted: updateMovieTitleToQuery,
               ),
             ),
           ),
           if(movieTitleToQuery == "twix") const HiddenMovie(),
           Expanded(
-            child: CatalogMoviesList(key: UniqueKey(), movieTitle: movieTitleToQuery)
-          )
+            child: CatalogMoviesList(key: UniqueKey(), movieTitle: movieTitleToQuery),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class _MovieSearchWarning extends StatelessWidget {
-  const _MovieSearchWarning({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.yellowLight,
-        borderRadius: BorderRadius.circular(10)
-      ),
-      child: Text("Due to technical issues, you need to search for the movie name in english.",
-        style: Theme.of(context).textTheme.bodyMedium!.apply(
-          color: AppColors.black,
-        ),
       ),
     );
   }

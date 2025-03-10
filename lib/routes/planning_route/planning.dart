@@ -69,7 +69,7 @@ class _PlanningState extends State<Planning> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              "Planning",
+              "Watchlist",
               style: Theme.of(context).textTheme.displaySmall
             ),
           ),

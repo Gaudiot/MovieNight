@@ -1,36 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
-import 'package:movie_night/shared/pages.dart';
-import 'package:movie_night/shared/app_colors.dart';
-import 'package:movie_night/routes/catalog_route/catalog.dart';
-import 'package:movie_night/routes/profile_route/profile.dart';
-import 'package:movie_night/routes/watched_route/watched.dart';
-import 'package:movie_night/routes/planning_route/planning.dart';
-import 'package:movie_night/routes/movie_detail/movie_detail.dart';
+import "package:flutter/material.dart";
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
+import "package:go_router/go_router.dart";
+import "package:movie_night/routes/catalog_route/catalog.dart";
+import "package:movie_night/routes/movie_detail/movie_detail.dart";
+import "package:movie_night/routes/planning_route/planning.dart";
+import "package:movie_night/routes/profile_route/profile.dart";
+import "package:movie_night/routes/watched_route/watched.dart";
+import "package:movie_night/shared/app_colors.dart";
+import "package:movie_night/shared/pages.dart";
+import "package:persistent_bottom_nav_bar/persistent_tab_view.dart";
 
 final appRouterConfig = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: "/",
       builder: (context, state) => const _TabsLayout(),
     ),
     GoRoute(
-      path: '/movie/:movieId',
+      path: "/movie/:movieId",
       builder: (context, state){
-        final String movieId = state.pathParameters['movieId']!;
+        final String movieId = state.pathParameters["movieId"]!;
 
         return _BaseLayout(child: MovieDetail(movieId));
       },
     ),
-  ]
+  ],
 );
 
 class _BaseLayout extends StatelessWidget {
   final Widget child;
-  const _BaseLayout({super.key, required this.child});
+  const _BaseLayout({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +61,7 @@ class _TabsLayoutState extends State<_TabsLayout> {
     const Catalog(),
     const Planning(),
     const Watched(),
-    const Profile()
+    const Profile(),
   ];
 
   final List<PersistentBottomNavBarItem> _items = [
@@ -70,25 +69,25 @@ class _TabsLayoutState extends State<_TabsLayout> {
       icon: FaIcon(Pages.catalog.icon),
       title: Pages.catalog.name,
       activeColorPrimary: Colors.orange,
-      inactiveColorPrimary: Colors.grey
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: FaIcon(Pages.planning.icon),
       title: Pages.planning.name,
       activeColorPrimary: Colors.orange,
-      inactiveColorPrimary: Colors.grey
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: FaIcon(Pages.watched.icon),
       title: Pages.watched.name,
       activeColorPrimary: Colors.orange,
-      inactiveColorPrimary: Colors.grey
+      inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
       icon: FaIcon(Pages.profile.icon),
       title: Pages.profile.name,
       activeColorPrimary: Colors.orange,
-      inactiveColorPrimary: Colors.grey
+      inactiveColorPrimary: Colors.grey,
     ),
   ];
 
@@ -102,7 +101,7 @@ class _TabsLayoutState extends State<_TabsLayout> {
         stateManagement: false,
         screenTransitionAnimation: const ScreenTransitionAnimation(
           animateTabTransition: true, 
-          duration: Duration(milliseconds: 500)
+          duration: Duration(milliseconds: 500),
         ),
       ),
     );

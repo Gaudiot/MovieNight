@@ -1,1 +1,34 @@
 include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    always_declare_return_types: error
+    always_put_required_named_parameters_first: warning
+    file_names: error
+    prefer_final_in_for_each: warning
+    prefer_final_locals: warning
+    require_trailing_commas: warning
+    prefer_void_to_null: warning
+    unnecessary_breaks: error
+
+linter:
+  rules:
+    - always_declare_return_types
+    - always_put_required_named_parameters_first
+    - avoid_void_async
+    - directives_ordering
+    - file_names
+    - lines_longer_than_80_chars
+    - literal_only_boolean_expressions
+    - no_literal_bool_comparisons
+    - prefer_double_quotes
+    - prefer_final_in_for_each
+    - prefer_final_locals
+    - prefer_void_to_null
+    - require_trailing_commas
+    - unnecessary_await_in_return
+    - unnecessary_breaks
+    - use_colored_box
+    - use_decorated_box
+    - use_if_null_to_convert_nulls_to_bools
+    - use_named_constants

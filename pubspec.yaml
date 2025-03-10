@@ -1,10 +1,10 @@
 name: movie_night
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.1.0
+version: 1.2.2+5
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.0.5 <4.0.0"
 
 dependencies:
   flutter:
@@ -12,7 +12,7 @@ dependencies:
 
   uuid: ^4.2.2
   provider: ^6.0.5
-  dio: ^5.3.3
+  dio: ^5.5.0+1
   shared_preferences: ^2.2.0
   cached_network_image: ^3.3.0
   json_annotation: ^4.8.1
@@ -20,14 +20,22 @@ dependencies:
   go_router: ^12.1.1
   infinite_scroll_pagination: ^4.0.0
   font_awesome_flutter: ^10.6.0
-  google_fonts: ^6.1.0
+  google_fonts: 6.1.0
   persistent_bottom_nav_bar: ^5.0.2
   auto_size_text: ^3.0.0
+  youtube_player_flutter: ^8.1.2
+  hive: ^4.0.0-dev.2
+  isar_flutter_libs: ^4.0.0-dev.13
+  path_provider: ^2.1.0
+  get_it: 8.0.3
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
+
+  flutter_gen: ^5.6.0
+  flutter_gen_runner: ^5.6.0
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^3.0.1
   json_serializable: ^6.7.1
@@ -37,9 +45,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
-    - assets/images/
+    - lib/assets/icons/
+    - lib/assets/images/
     - .env
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -58,7 +70,6 @@ flutter_launcher_icons:
   macos:
     generate: false
     image_path: "lib/assets/movie_night_icon.png"
-
 # To reset the app icon run the following commands
 # flutter clean
 # flutter pub get
@@ -66,3 +77,9 @@ flutter_launcher_icons:
 
 # To build APK of project run
 # flutter build apk --split-per-abi --obfuscate --split-debug-info=obfuscated_symbols
+
+# To build app bundle
+# flutter build appbundle --obfuscate --split-debug-info=obfuscated_symbols
+
+# To regenerate the assets and code run the following command
+# dart run build_runner build --delete-conflicting-outputs
