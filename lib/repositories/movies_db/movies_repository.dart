@@ -31,7 +31,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<Movie?> getMovieById(String movieId) async{
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
 
     if(movieIndex == -1) return null;
@@ -49,7 +49,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<void> removeMovieFromPlanning(String movieId) async {
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
 
     movies.removeAt(movieIndex);
@@ -60,7 +60,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<void> addMovieToPlanning(Movie movie) async {
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     movies.add(movie);
 
     final rawMovies = movies.map((movie) => movie.toString()).toList();
@@ -74,7 +74,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<void> toggleMovieFavorite(String movieId) async {
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
     final movie = movies[movieIndex];
 
@@ -87,7 +87,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<void> toggleMovieWatched(String movieId) async {
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
     final movie = movies[movieIndex];
 
@@ -100,7 +100,7 @@ class MoviesRepository implements IMovieRepository{
 
   @override
   Future<void> setMovieFavorite(String movieId, bool value) async {
-    List<Movie> movies = await getAllMovies();
+    final List<Movie> movies = await getAllMovies();
     final movieIndex = movies.indexWhere((movie) => movie.imdbId == movieId);
     final movie = movies[movieIndex];
 

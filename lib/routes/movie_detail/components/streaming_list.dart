@@ -38,16 +38,16 @@ class _StreamingListState extends State<StreamingList> {
               return const Text("No streamings found");
             }
         
-            final streamings = snapshot.data!;
+            final streamings = snapshot.data;
 
-            if(streamings.isEmpty){
+            if(streamings == null || streamings.isEmpty){
               return const Text("No streamings found");
             }
 
             return Wrap(
               spacing: 10,
               children: [
-                for(String streaming in streamings)
+                for(final String streaming in streamings)
                   CachedNetworkImage(
                     imageUrl: "https://media.themoviedb.org/t/p/original/$streaming",
                     height: 50,

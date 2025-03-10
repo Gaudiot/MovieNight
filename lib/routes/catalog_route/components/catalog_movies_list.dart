@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
-import 'package:movie_night/shared/https/https.dart';
-import 'package:movie_night/entities/movie/movie.dart';
-import 'package:movie_night/routes/catalog_route/components/catalog_movie_card.dart';
+import "package:flutter/material.dart";
+import "package:infinite_scroll_pagination/infinite_scroll_pagination.dart";
+import "package:movie_night/entities/movie/movie.dart";
+import "package:movie_night/gen/assets.gen.dart";
+import "package:movie_night/routes/catalog_route/components/catalog_movie_card.dart";
+import "package:movie_night/shared/https/https.dart";
 
 class CatalogMoviesList extends StatefulWidget {
   final String movieTitle;
@@ -69,7 +69,7 @@ class _CatalogMoviesListState extends State<CatalogMoviesList> {
 }
 
 class _NoMovieSearch extends StatelessWidget {
-  const _NoMovieSearch({super.key});
+  const _NoMovieSearch();
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +77,12 @@ class _NoMovieSearch extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset('assets/images/popcorn_bucket.png',
-          height: 300,
-        ),
+        Assets.lib.assets.icons.emptyPopcorn.svg(
+            width: MediaQuery.of(context).size.width * 0.5,
+          ),
+        // Image.asset("assets/images/popcorn_bucket.png",
+        //   height: 300,
+        // ),
         Text("What movie you want to watch next?",
           style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.center,
@@ -90,7 +93,7 @@ class _NoMovieSearch extends StatelessWidget {
 }
 
 class _NoMoviesFound extends StatelessWidget {
-  const _NoMoviesFound({super.key});
+  const _NoMoviesFound();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,7 @@ class _NoMoviesFound extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset('assets/images/no_movie.png',
+        Image.asset("assets/images/no_movie.png",
           height: 300,
         ),
         Text("Sorry, we couldn't find the movie with that title.",
@@ -111,7 +114,7 @@ class _NoMoviesFound extends StatelessWidget {
 }
 
 class _ErrorFetchingData extends StatelessWidget {
-  const _ErrorFetchingData({super.key});
+  const _ErrorFetchingData();
 
   @override
   Widget build(BuildContext context) {

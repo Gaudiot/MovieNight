@@ -65,10 +65,10 @@ class UIDropdown<T> extends StatelessWidget {
           (index) => DropdownMenuEntry<T>(
             value: entries[index].value,
             label: entries[index].label,
-            labelWidget: Text(
-              entries[index].label,
-              style: const TextStyle(color: AppColors.white),
-            ),
+            // labelWidget: Text(
+            //   entries[index].label,
+            //   style: const TextStyle(color: AppColors.white),
+            // ),
           ),
         ),
       ),
