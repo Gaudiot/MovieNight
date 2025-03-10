@@ -2,25 +2,28 @@
 /**
   Projeto iniciado no dia 21 de Junho de 2023
 */
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'package:movie_night/routes/index.dart';
-import 'package:movie_night/shared/app_colors.dart';
+import "package:flutter/material.dart";
+import "package:flutter_dotenv/flutter_dotenv.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:movie_night/injections.dart";
+import "package:movie_night/routes/index.dart";
+import "package:movie_night/shared/app_colors.dart";
+import "package:movie_night/src/base/local_storage/local_storage.dart";
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load();
+  setupInjections();
+  await getIt<ILocalStorage>().init();
   runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Movie Night',
+      title: "Movie Night",
       debugShowCheckedModeBanner: false,
       routerConfig: appRouterConfig,
       theme: _theme(context),
@@ -28,21 +31,18 @@ class MainApp extends StatelessWidget {
   }
 }
 
-ThemeData _theme(BuildContext context){
+ThemeData _theme(BuildContext context) {
   return ThemeData(
     useMaterial3: true,
-    
     textTheme: GoogleFonts.merriweatherTextTheme(
-      Theme.of(context).textTheme.apply(
-        displayColor: AppColors.yellow,
-        bodyColor: AppColors.white
-      ),
+      Theme.of(context)
+          .textTheme
+          .apply(displayColor: AppColors.yellow, bodyColor: AppColors.white),
     ),
-
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.dark,
       seedColor: AppColors.white,
       background: AppColors.blue,
-    )
+    ),
   );
 }
