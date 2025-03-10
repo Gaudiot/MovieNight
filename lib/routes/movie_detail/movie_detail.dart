@@ -9,7 +9,6 @@ import 'package:movie_night/repositories/movies_db/movies_repository.dart';
 import 'package:movie_night/routes/movie_detail/components/display_genres.dart';
 import 'package:movie_night/routes/movie_detail/components/movie_info.dart';
 import 'package:movie_night/routes/movie_detail/components/streaming_list.dart';
-import 'package:movie_night/routes/movie_detail/components/trailer_player.dart';
 import 'package:movie_night/shared/https/https.dart';
 
 class MovieDetail extends StatefulWidget{
@@ -46,9 +45,8 @@ class _MovieDetailState extends State<MovieDetail> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // future: Future.wait([getMovie(widget.movieId), TmdbApi().getMovieTrailerIds(movieId: widget.movieId)]),
       future: movie,
-      builder:(context, snapshot) {
+      builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
           return const Center(child: CircularProgressIndicator());
         }
@@ -68,13 +66,12 @@ class _MovieDetailState extends State<MovieDetail> {
           );
         }
 
-        return Container(
-          margin: const EdgeInsets.all(20),
-          child: Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _BackBar(movie.title),
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _BackBar(movie.title),
                 Row(
                   children: [
                     CachedNetworkImage(
@@ -87,11 +84,10 @@ class _MovieDetailState extends State<MovieDetail> {
                     MovieInfo(movie: movie)
                   ],
                 ),
-                DisplayGenres(movie.genres),
-                StreamingList(movieId: movie.imdbId),
-                _Synopsis(movie.synopsis),
-              ],
-            ),
+              DisplayGenres(movie.genres),
+              StreamingList(movieId: movie.imdbId),
+              _Synopsis(movie.synopsis),
+            ],
           ),
         );
       }
@@ -125,26 +121,24 @@ class _BackBar extends StatelessWidget {
 
 class _Synopsis extends StatelessWidget {
   final String movieSynopsis;
-  const _Synopsis(this.movieSynopsis, {super.key});
+
+  const _Synopsis(this.movieSynopsis);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Synopsis", style: Theme.of(context).textTheme.displayMedium),
-          const SizedBox(height: 10),
-          Text(movieSynopsis)
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Synopsis", style: Theme.of(context).textTheme.displayMedium),
+        const SizedBox(height: 10),
+        Text(movieSynopsis)
+      ],
     );
   }
 }
 
 class _NoMovieFound extends StatelessWidget {
-  const _NoMovieFound({super.key});
+  const _NoMovieFound();
 
   @override
   Widget build(BuildContext context) {

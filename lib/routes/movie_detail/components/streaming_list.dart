@@ -27,8 +27,10 @@ class _StreamingListState extends State<StreamingList> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Streamings", style: Theme.of(context).textTheme.headlineSmall),
+        const SizedBox(height: 4),
         FutureBuilder(
           future: streamings,
           builder: (context, snapshot) {

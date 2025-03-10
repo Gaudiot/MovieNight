@@ -123,15 +123,4 @@ class TmdbApi{
 
     return streamings;
   }
-
-  Future<List<String>> getMovieTrailerIds({required String movieId}) async {
-    String requestPath = "/movie/$movieId/videos";
-    Response response = await dio.get(requestPath);
-    dynamic data = response.data;
-
-    (data["results"] as List<dynamic>).removeWhere((result) => result["type"] != "Trailer");
-    List<String> trailerIds = (data["results"] as List<dynamic>).map<String>((result) => result["key"]).toList();
-
-    return trailerIds;
-  }
 }

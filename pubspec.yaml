@@ -1,7 +1,7 @@
 name: movie_night
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.2.0+3
+version: 1.2.2+5
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -23,7 +23,6 @@ dependencies:
   google_fonts: ^6.1.0
   persistent_bottom_nav_bar: ^5.0.2
   auto_size_text: ^3.0.0
-  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
@@ -67,3 +66,6 @@ flutter_launcher_icons:
 
 # To build APK of project run
 # flutter build apk --split-per-abi --obfuscate --split-debug-info=obfuscated_symbols
+
+# To build app bundle
+# flutter build appbundle --obfuscate --split-debug-info=obfuscated_symbols
