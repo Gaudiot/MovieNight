@@ -42,7 +42,7 @@ ThemeData _theme(BuildContext context) {
     colorScheme: ColorScheme.fromSeed(
       brightness: Brightness.dark,
       seedColor: AppColors.white,
-      background: AppColors.blue,
+      surface: AppColors.blue,
     ),
   );
 }
