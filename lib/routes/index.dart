@@ -8,7 +8,7 @@ import "package:movie_night/routes/profile_route/profile.dart";
 import "package:movie_night/routes/watched_route/watched.dart";
 import "package:movie_night/shared/app_colors.dart";
 import "package:movie_night/shared/pages.dart";
-import "package:persistent_bottom_nav_bar/persistent_tab_view.dart";
+import "package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart";
 
 final appRouterConfig = GoRouter(
   routes: [
@@ -99,10 +99,6 @@ class _TabsLayoutState extends State<_TabsLayout> {
         items: _items,
         backgroundColor: AppColors.black,
         stateManagement: false,
-        screenTransitionAnimation: const ScreenTransitionAnimation(
-          animateTabTransition: true, 
-          duration: Duration(milliseconds: 500),
-        ),
       ),
     );
   }
